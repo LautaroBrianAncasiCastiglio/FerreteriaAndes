@@ -7,6 +7,7 @@
 package Control_BD;
 import BD_Vendedor.ListarVendedor;
 import static BD_Vendedor.ListarVendedor.jTableListarVendedor;
+import BD_Vendedor.addVendedor;
 
 import consultas.*;
 import ferreteriaandes.Ventas;
@@ -18,6 +19,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -125,8 +128,30 @@ public class Control_Vendedor {
 
     }//cierra metodo ejecutarConsulta
     
-    // eliminar  
+    //añadir
+    public void agregarVendedor(String cod, String nombre) {
+
+         Connection reg = ConexionConBaseDatos.getConexion();
+        
+        String sql = "INSERT INTO table_vendedor (idVendedor,nombreVendedor)VALUES (?,?)";
+        try {
+            PreparedStatement pst= reg.prepareStatement(sql);
+            pst.setString(1,cod);
+            pst.setString(2,nombre);
+            
+            int n = pst.executeUpdate();
+            if (n>0){
+                JOptionPane.showMessageDialog(null,"Regristado Exitosamente");
+            }
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error - "+ex);
+            Logger.getLogger(addVendedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
+    }//cierra metodo agregar
     
+    // eliminar  
     public void EliminarVendedor(String code){
         
         try {            
@@ -164,6 +189,8 @@ public class Control_Vendedor {
         }
 
     }
+
+    
             
             
 }

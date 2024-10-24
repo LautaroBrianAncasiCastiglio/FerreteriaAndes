@@ -24,7 +24,7 @@ public class addCliente extends javax.swing.JDialog {
     /**
      * Creates new form addCliente
      */
-    
+    Control_Cliente agregarCliente;
     Control_Cliente add = new Control_Cliente();
     
     public addCliente(java.awt.Frame parent, boolean modal) {
@@ -225,7 +225,7 @@ public class addCliente extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
 
-        
+        agregarCliente = new Control_Cliente();// declaramos a la funcion agregar cliente
        
         // obtener datos 
         String cod = jTextFieldCodigo.getText();
@@ -235,6 +235,7 @@ public class addCliente extends javax.swing.JDialog {
         add.agregarCliente(cod,nombre,apellido,cedula);
         // codigo de introducir datos a la mysql
         
+        agregarCliente.agregarCliente(cod, nombre, apellido, cedula);// llamamos los datos del formulario para la BD
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

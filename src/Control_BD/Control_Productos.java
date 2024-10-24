@@ -1,6 +1,7 @@
 package Control_BD;
 
 import BD_Productos.ConsultarProductos;
+import BD_Productos.addProductos;
 import ferreteriaandes.Ventas;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -8,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -33,9 +36,27 @@ public class Control_Productos {
     
     
 
-     public void agregarProductos(String cedula, String nombre, String apellido, String direccion, String telefono) {
+     public void agregarProductos(String cod, String nombre, Integer precio) {
 
+         Connection reg = ConexionConBaseDatos.getConexion();
+        
+        String sql = "INSERT INTO table_productos ( idProductos, nombreProductos, preciosProductos) VALUES (?,?,?)";
+        try {
+            PreparedStatement pst= reg.prepareStatement(sql);
+            pst.setString(1,cod);
+            pst.setString(2,nombre);
+            pst.setInt(3,precio);
+ 
+            
+            int n = pst.executeUpdate();
+            if (n>0){
+                JOptionPane.showMessageDialog(null,"Regristado Exitosamente");
+            }
 
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error - "+ex);
+            Logger.getLogger(addProductos.class.getName()).log(Level.SEVERE, null, ex);
+        }
          
     }//cierra metodo agregarCliente
      

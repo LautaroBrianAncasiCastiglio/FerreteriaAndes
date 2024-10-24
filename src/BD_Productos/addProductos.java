@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import BD_Productos.addProductos;
+import Control_BD.Control_Productos;
 
 /**
  *
@@ -23,6 +25,8 @@ public class addProductos extends javax.swing.JDialog {
     /**
      * Creates new form addCliente
      */
+    Control_Productos agregarProductos;
+    Control_Productos add = new Control_Productos();
     ConexionConBaseDatos conectar = new ConexionConBaseDatos();
     
     public addProductos(java.awt.Frame parent, boolean modal) {
@@ -207,28 +211,16 @@ public class addProductos extends javax.swing.JDialog {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code her
+        agregarProductos = new Control_Productos();
         
-        Connection reg = conectar.getConexion();
+        String cod = jTextFieldCodigo.getText();
+        String nombre = jTextFieldNombre.getText();
+        String pre = jTextFieldPrecios.getText();
+        Integer precio = Integer.parseInt(pre);
+        add.agregarProductos(cod, nombre, precio);
         
-        // codigo de introducir datos a la mysql
-        String sql = "INSERT INTO table_productos ( idProductos, nombreProductos, preciosProductos) VALUES (?,?,?)";
-        try {
-            PreparedStatement pst= reg.prepareStatement(sql);
-            pst.setString(1,jTextFieldCodigo.getText());
-            pst.setString(2,jTextFieldNombre.getText());
-            pst.setString(3,jTextFieldPrecios.getText());
- 
-            
-            int n = pst.executeUpdate();
-            if (n>0){
-                JOptionPane.showMessageDialog(null,"Regristado Exitosamente");
-            }
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error - "+ex);
-            Logger.getLogger(addProductos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
+        //codigo introducir a datos a mysql
+        agregarProductos.agregarProductos(cod, nombre, precio);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

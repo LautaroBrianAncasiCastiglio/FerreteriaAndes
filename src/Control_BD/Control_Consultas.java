@@ -32,7 +32,7 @@ public class Control_Consultas {
     //modelo para la tabla
     DefaultTableModel modelo;
     //vector con los titulos de cada columna
-    
+    String[] titulosColumnas = {"No_Facturas", "CLIENTE", "FECHA", "VENDEDOR","TOTALS"};
     //matriz donde se almacena los datos de cada celda de la tabla
     String info[][] = {};
     // Conectar Base de Datos

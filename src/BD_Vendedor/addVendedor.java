@@ -7,6 +7,7 @@
 package BD_Vendedor;
 
 import Control_BD.ConexionConBaseDatos;
+import Control_BD.Control_Vendedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -24,6 +25,8 @@ public class addVendedor extends javax.swing.JDialog {
      * Creates new form addVendedor
      */
     // llamada clase de conexion
+    Control_Vendedor agregarVendedor;
+    Control_Vendedor add = new Control_Vendedor();
     ConexionConBaseDatos conectar = new ConexionConBaseDatos();
     
     public addVendedor(java.awt.Frame parent, boolean modal) {
@@ -177,26 +180,15 @@ public class addVendedor extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code her
+        agregarVendedor = new Control_Vendedor();
         
-        Connection reg = conectar.getConexion();
-    
-        String sql = "INSERT INTO table_vendedor (idVendedor,nombreVendedor)VALUES (?,?)";
-        try {
-            PreparedStatement pst= reg.prepareStatement(sql);
-            pst.setString(1,jTextFieldCodigo.getText());
-            pst.setString(2,jTextFieldNombre.getText());
-            int n=pst.executeUpdate();
-            if (n>0){
-                JOptionPane.showMessageDialog(null,"Regristado Exitosamente Vendedor");             
-           }
-            
-            
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error - "+ex);
-            Logger.getLogger(addVendedor.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        String cod = jTextFieldCodigo.getText();
+        String nombre = jTextFieldNombre.getText();
+        add.agregarVendedor(cod, nombre);
+        
+        //codigo introducir a datos a mysql
+        agregarVendedor.agregarVendedor(cod, nombre);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
